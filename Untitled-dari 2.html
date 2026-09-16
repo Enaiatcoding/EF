@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="theme-color" content="#05020d">
+
+<title>اولین دیدار — عنایت</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    margin:0;
+}
+
+body{
+    overflow:hidden;
+    background:#020108;
+    color:white;
+    font-family:"Vazirmatn",sans-serif;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+.app{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    perspective:1400px;
+    background:#020108;
+}
+
+
+/* =====================================================
+   SPACE
+===================================================== */
+
+.space{
+    position:absolute;
+    inset:-25%;
+
+    transform:
+        translateZ(-400px)
+        scale(1.35);
+
+    transition:
+        transform 1.7s ease;
+}
+
+.color-glow{
+    position:absolute;
+
+    width:75vw;
+    height:75vw;
+
+    max-width:700px;
+    max-height:700px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:var(--scene-color);
+
+    opacity:.20;
+
+    filter:blur(100px);
+
+    transition:
+        background 1.4s ease;
+}
+
+
+/* =====================================================
+   NEBULA
+===================================================== */
+
+.nebula{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(75px);
+
+    transition:
+        background 1.5s ease;
+}
+
+.nebula.one{
+    width:70vw;
+    height:70vw;
+
+    left:-25%;
+    top:-20%;
+
+    background:var(--scene-color);
+    opacity:.28;
+
+    animation:
+        nebulaOne
+        13s
+        ease-in-out
+        infinite alternate;
+}
+
+.nebula.two{
+    width:75vw;
+    height:75vw;
+
+    right:-30%;
+    bottom:-25%;
+
+    background:var(--scene-secondary);
+    opacity:.23;
+
+    animation:
+        nebulaTwo
+        16s
+        ease-in-out
+        infinite alternate;
+}
+
+.nebula.three{
+    width:50vw;
+    height:50vw;
+
+    left:25%;
+    bottom:-25%;
+
+    background:var(--scene-third);
+    opacity:.18;
+
+    animation:
+        nebulaThree
+        19s
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+.stars{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+
+    border-radius:50%;
+    background:white;
+
+    box-shadow:
+        0 0 8px white;
+
+    animation:
+        twinkle
+        var(--speed)
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* =====================================================
+   GALAXY
+===================================================== */
+
+.galaxy{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:750px;
+    height:230px;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-18deg);
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 0 80px
+        var(--scene-color);
+
+    opacity:.42;
+
+    transition:
+        box-shadow 1.5s ease;
+
+    animation:
+        galaxySpin
+        38s
+        linear
+        infinite;
+}
+
+.galaxy.two{
+    width:520px;
+    height:160px;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(35deg);
+
+    animation-duration:25s;
+}
+
+.galaxy.three{
+    width:900px;
+    height:280px;
+
+    opacity:.16;
+
+    animation-duration:50s;
+}
+
+
+/* =====================================================
+   PLANET
+===================================================== */
+
+.planet{
+    position:absolute;
+
+    right:8%;
+    top:17%;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            white,
+            var(--scene-color) 20%,
+            var(--scene-secondary) 55%,
+            #02010a 88%
+        );
+
+    box-shadow:
+        inset -20px -15px 35px rgba(0,0,0,.65),
+        0 0 55px var(--scene-color);
+
+    opacity:.7;
+
+    transition:
+        background 1.5s ease,
+        box-shadow 1.5s ease;
+
+    animation:
+        planetFloat
+        9s
+        ease-in-out
+        infinite alternate;
+}
+
+.planet:after{
+    content:"";
+
+    position:absolute;
+
+    left:-24px;
+    top:32px;
+
+    width:140px;
+    height:30px;
+
+    border:
+        2px solid
+        rgba(255,255,255,.25);
+
+    border-radius:50%;
+
+    transform:rotate(-18deg);
+}
+
+
+/* =====================================================
+   UI
+===================================================== */
+
+.ui{
+    position:absolute;
+
+    inset:0;
+
+    z-index:20;
+
+    padding:
+        max(20px,env(safe-area-inset-top))
+        20px
+        max(20px,env(safe-area-inset-bottom));
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+}
+
+
+/* =====================================================
+   TOP
+===================================================== */
+
+.top{
+    direction:rtl;
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+
+    position:relative;
+    z-index:10;
+
+    min-height:48px;
+}
+
+.logo{
+    width:43px;
+    height:43px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.22);
+
+    backdrop-filter:blur(15px);
+
+    color:var(--scene-color);
+
+    font-size:20px;
+
+    text-shadow:
+        0 0 18px
+        var(--scene-color);
+
+    transition:
+        color 1.3s ease;
+
+    animation:
+        heartbeat
+        2.2s
+        ease-in-out
+        infinite;
+}
+
+.top-info{
+    display:flex;
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:0;
+}
+
+.top-title{
+    color:
+        rgba(255,255,255,.68);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    white-space:nowrap;
+}
+
+.top-author{
+    color:
+        var(--scene-color);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+    text-shadow:
+        0 0 14px
+        var(--scene-color);
+
+    transition:
+        color 1.3s ease;
+}
+
+.counter{
+    margin-right:auto;
+
+    color:
+        rgba(255,255,255,.40);
+
+    direction:ltr;
+
+    font-size:9px;
+    letter-spacing:.12em;
+}
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+.music{
+    position:absolute;
+
+    left:20px;
+    top:74px;
+
+    width:43px;
+    height:43px;
+
+    z-index:15;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    background:
+        rgba(255,255,255,.07);
+
+    backdrop-filter:blur(15px);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    transition:.4s ease;
+}
+
+.music.playing{
+    color:var(--scene-color);
+
+    box-shadow:
+        0 0 25px
+        var(--scene-color);
+}
+
+
+/* =====================================================
+   STORY CONTENT
+===================================================== */
+
+.content{
+    position:absolute;
+
+    left:18px;
+    right:18px;
+
+    top:calc(50% - 5px);
+
+    transform:
+        translateY(-50%)
+        translateZ(180px);
+
+    text-align:center;
+
+    max-height:
+        calc(
+            100vh
+            - 245px
+            - env(safe-area-inset-top)
+            - env(safe-area-inset-bottom)
+        );
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    padding:
+        25px 8px 35px;
+
+    scrollbar-width:none;
+
+    transition:
+        opacity .4s ease,
+        transform .8s cubic-bezier(.16,.8,.18,1);
+}
+
+.content::-webkit-scrollbar{
+    display:none;
+}
+
+.content.exit{
+    opacity:0;
+
+    transform:
+        translateY(-55%)
+        translateZ(60px)
+        scale(.94)
+        rotateX(8deg);
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.eyebrow{
+    margin-bottom:10px;
+
+    color:var(--scene-color);
+
+    font-size:9px;
+    font-weight:600;
+
+    text-shadow:
+        0 0 22px
+        var(--scene-color);
+
+    transition:
+        color 1.3s ease;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.title{
+    margin:0 auto;
+
+    max-width:650px;
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:
+        clamp(35px,9.5vw,62px);
+
+    font-weight:500;
+
+    line-height:1.65;
+
+    color:white;
+
+    text-shadow:
+        0 8px 40px
+        rgba(0,0,0,.65);
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.body{
+    max-width:480px;
+
+    margin:5px auto 0;
+
+    color:
+        rgba(255,255,255,.74);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:
+        clamp(17px,4.3vw,22px);
+
+    line-height:2;
+
+    text-wrap:balance;
+}
+
+
+/* =====================================================
+   EXTRA EMOTIONAL LINE
+===================================================== */
+
+.emotion{
+    max-width:400px;
+
+    margin:8px auto 0;
+
+    color:
+        rgba(255,255,255,.43);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:
+        clamp(12px,3.4vw,16px);
+
+    line-height:2;
+
+    text-wrap:balance;
+}
+
+
+/* =====================================================
+   FINAL HEART
+===================================================== */
+
+.big-heart{
+    width:90px;
+    height:90px;
+
+    margin:
+        0 auto 12px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:32px;
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            white,
+            var(--scene-color) 20%,
+            var(--scene-secondary) 65%,
+            #080014
+        );
+
+    font-size:42px;
+
+    box-shadow:
+        0 0 65px
+        var(--scene-color);
+
+    animation:
+        finalHeart
+        2.5s
+        ease-in-out
+        infinite alternate;
+}
+
+
+/* =====================================================
+   BOTTOM
+===================================================== */
+
+.bottom{
+    position:relative;
+
+    z-index:30;
+
+    display:flex;
+    justify-content:center;
+
+    min-height:94px;
+
+    padding-top:8px;
+    padding-bottom:3px;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(2,1,8,.98),
+            rgba(2,1,8,.58),
+            transparent
+        );
+}
+
+.tap{
+    display:flex;
+
+    flex-direction:column;
+    align-items:center;
+
+    gap:6px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size:8px;
+    font-weight:600;
+}
+
+.tap-circle{
+    width:58px;
+    height:58px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.07);
+
+    backdrop-filter:blur(15px);
+
+    color:
+        var(--scene-color);
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    animation:
+        tapPulse
+        2.2s
+        ease-in-out
+        infinite;
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+.restart{
+    display:none;
+
+    margin-top:5px;
+
+    padding:
+        13px 25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.20);
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.05)
+        );
+
+    color:white;
+
+    font-family:
+        "Vazirmatn",
+        sans-serif;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 0 35px
+        var(--scene-color);
+}
+
+.restart.show{
+    display:block;
+}
+
+.finished{
+    display:none;
+
+    margin-top:4px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:13px;
+}
+
+.finished.show{
+    display:block;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+    position:absolute;
+
+    inset:0;
+
+    z-index:100;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+
+    text-align:center;
+
+    overflow:auto;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 30%,
+            #b83cff35,
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 15% 80%,
+            #ff3ca525,
+            transparent 30%
+        ),
+
+        #03010b;
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s cubic-bezier(.16,.8,.18,1);
+}
+
+.intro.hide{
+    opacity:0;
+
+    transform:scale(1.1);
+
+    pointer-events:none;
+}
+
+.intro-inner{
+    width:100%;
+    max-width:430px;
+    padding:30px 0;
+}
+
+.intro-heart{
+    width:100px;
+    height:100px;
+
+    margin:
+        0 auto 18px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:34px;
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            white,
+            #ff91d4 20%,
+            #9238e8 60%,
+            #18052d
+        );
+
+    font-size:46px;
+
+    box-shadow:
+        0 0 70px
+        #d13cff55;
+
+    animation:
+        introHeart
+        3s
+        ease-in-out
+        infinite alternate;
+}
+
+.intro h1{
+    margin:0;
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:
+        clamp(39px,11vw,65px);
+
+    line-height:1.55;
+
+    font-weight:500;
+}
+
+.intro-author{
+    margin-top:0;
+
+    color:#ff9fda;
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:18px;
+
+    line-height:2;
+
+    text-shadow:
+        0 0 20px
+        #ff5cc6;
+}
+
+.intro p{
+    max-width:350px;
+
+    margin:
+        8px auto 25px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-family:
+        "Noto Nastaliq Urdu",
+        serif;
+
+    font-size:16px;
+
+    line-height:2;
+}
+
+.start{
+    padding:
+        13px 27px;
+
+    border:0;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            white,
+            #ffd9f1
+        );
+
+    color:#180c1b;
+
+    font-size:10px;
+    font-weight:800;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 60px
+        #ff73c833;
+}
+
+
+/* =====================================================
+   NOISE
+===================================================== */
+
+.noise{
+    position:absolute;
+
+    inset:0;
+
+    z-index:80;
+
+    pointer-events:none;
+
+    opacity:.025;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-height:680px){
+
+    .content{
+        max-height:
+            calc(100vh - 215px);
+
+        padding-top:15px;
+        padding-bottom:25px;
+    }
+
+    .title{
+        font-size:32px;
+        line-height:1.55;
+    }
+
+    .body{
+        font-size:15px;
+        line-height:1.85;
+    }
+
+    .emotion{
+        font-size:12px;
+        line-height:1.8;
+    }
+
+    .big-heart{
+        width:70px;
+        height:70px;
+
+        font-size:32px;
+
+        margin-bottom:7px;
+    }
+
+    .bottom{
+        min-height:82px;
+    }
+
+    .tap-circle{
+        width:52px;
+        height:52px;
+    }
+}
+
+@media(max-height:570px){
+
+    .content{
+        max-height:
+            calc(100vh - 190px);
+    }
+
+    .title{
+        font-size:29px;
+    }
+
+    .body{
+        font-size:14px;
+        line-height:1.7;
+    }
+
+    .emotion{
+        font-size:11px;
+    }
+
+    .eyebrow{
+        margin-bottom:5px;
+    }
+}
+
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:700px){
+
+    body{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+    .app{
+        width:460px;
+        height:92vh;
+        max-height:900px;
+
+        border-radius:35px;
+
+        box-shadow:
+            0 50px 140px
+            rgba(0,0,0,.9),
+
+            0 0 0 5px
+            #15141e;
+    }
+
+    .content{
+        max-height:
+            calc(92vh - 245px);
+    }
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes twinkle{
+
+    from{
+        opacity:.15;
+        transform:scale(.6);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1.5);
+    }
+}
+
+@keyframes galaxySpin{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            rotate(0deg);
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
+    }
+}
+
+@keyframes nebulaOne{
+
+    from{
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translate(120px,80px)
+            scale(1.25);
+    }
+}
+
+@keyframes nebulaTwo{
+
+    from{
+        transform:
+            translate(0,0)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translate(-100px,-90px)
+            scale(1.25);
+    }
+}
+
+@keyframes nebulaThree{
+
+    from{
+        transform:
+            translate(0,0);
+    }
+
+    to{
+        transform:
+            translate(80px,-60px)
+            scale(1.2);
+    }
+}
+
+@keyframes planetFloat{
+
+    from{
+        transform:
+            translateY(0)
+            rotate(-4deg);
+    }
+
+    to{
+        transform:
+            translateY(17px)
+            rotate(4deg);
+    }
+}
+
+@keyframes heartbeat{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.09);
+    }
+}
+
+@keyframes introHeart{
+
+    from{
+        transform:
+            translateY(0)
+            rotate(-3deg);
+    }
+
+    to{
+        transform:
+            translateY(-10px)
+            rotate(3deg);
+    }
+}
+
+@keyframes finalHeart{
+
+    from{
+        transform:
+            scale(1)
+            rotate(-2deg);
+    }
+
+    to{
+        transform:
+            scale(1.08)
+            rotate(2deg);
+    }
+}
+
+@keyframes tapPulse{
+
+    0%,100%{
+        box-shadow:
+            0 0 0 0
+            rgba(255,255,255,0);
+    }
+
+    50%{
+        box-shadow:
+            0 0 0 13px
+            rgba(255,255,255,0);
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app" id="app">
+
+
+    <!-- =================================================
+         SPACE
+    ================================================== -->
+
+    <div class="space" id="space">
+
+        <div
+            class="color-glow"
+            id="colorGlow">
+        </div>
+
+        <div class="nebula one"></div>
+        <div class="nebula two"></div>
+        <div class="nebula three"></div>
+
+        <div class="galaxy"></div>
+        <div class="galaxy two"></div>
+        <div class="galaxy three"></div>
+
+        <div class="planet"></div>
+
+        <div
+            class="stars"
+            id="stars">
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         MUSIC
+    ================================================== -->
+
+    <audio
+        id="music"
+        loop
+        preload="auto">
+
+        <!-- Put your music file beside this HTML file -->
+        <source
+            src="music.mp3"
+            type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- =================================================
+         INTRO
+    ================================================== -->
+
+    <section
+        class="intro"
+        id="intro">
+
+        <div class="intro-inner">
+
+            <div class="intro-heart">
+                ♥
+            </div>
+
+            <h1>
+                اولین دیدار
+            </h1>
+
+            <div class="intro-author">
+                ساخته شده توسط عنایت
+            </div>
+
+            <p>
+                بعضی داستان‌ها با یک لحظه‌ی ساده آغاز می‌شوند...
+                و بعضی لحظه‌ها تا همیشه در قلب می‌مانند.
+            </p>
+
+            <button
+                class="start"
+                onclick="startStory()">
+
+                ✦ شروع داستان ✦
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         UI
+    ================================================== -->
+
+    <div class="ui">
+
+
+        <!-- TOP -->
+
+        <div class="top">
+
+            <div class="logo">
+                ♥
+            </div>
+
+            <div class="top-info">
+
+                <div class="top-title">
+                    این برنامه توسط عنایت ساخته شده
+                </div>
+
+                <div class="top-author">
+                    نوشته‌ی عنایت
+                </div>
+
+            </div>
+
+            <div
+                class="counter"
+                id="counter">
+
+                01 / 20
+
+            </div>
+
+        </div>
+
+
+        <!-- MUSIC -->
+
+        <button
+            class="music"
+            id="musicButton"
+            onclick="toggleMusic()">
+
+            ♪
+
+        </button>
+
+
+        <!-- STORY -->
+
+        <div
+            class="content"
+            id="content">
+        </div>
+
+
+        <!-- BOTTOM -->
+
+        <div class="bottom">
+
+            <div class="tap">
+
+                <div
+                    class="tap-circle"
+                    id="nextButton"
+                    onclick="next()">
+
+                    ↓
+
+                </div>
+
+                <span id="tapText">
+                    ادامه
+                </span>
+
+                <button
+                    class="restart"
+                    id="restartButton"
+                    onclick="restartStory()">
+
+                    ↻ شروع دوباره
+
+                </button>
+
+                <div
+                    class="finished"
+                    id="finished">
+
+                    پایان داستان
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="noise"></div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   STORY
+===================================================== */
+
+const scenes = [
+
+{
+    label:"آغاز",
+    title:"یک آغاز آرام",
+    body:"بعضی آدم‌ها آرام وارد زندگی ما می‌شوند...",
+    emotion:"بی‌خبر از اینکه شاید روزی، بخشی از قلبمان شوند.",
+    color:"#c77dff",
+    secondary:"#5a189a",
+    third:"#e0aaff"
+},
+
+{
+    label:"یک روز عادی",
+    title:"یک روز معمولی",
+    body:"همه‌چیز عادی بود... تا اینکه تو را دیدم.",
+    emotion:"گاهی یک لحظه‌ی ساده، تمام معنی یک روز را عوض می‌کند.",
+    color:"#48cae4",
+    secondary:"#0077b6",
+    third:"#90e0ef"
+},
+
+{
+    label:"اولین نگاه",
+    title:"یک نگاه",
+    body:"فقط یک نگاه بود، اما چیزی در دلم ماند.",
+    emotion:"نگاهی کوتاه، خاطره‌ای که کوتاه نماند.",
+    color:"#ff70a6",
+    secondary:"#c9184a",
+    third:"#ffb3c6"
+},
+
+{
+    label:"کنجکاوی",
+    title:"کی هستی؟",
+    body:"نمی‌دانستم کی هستی، اما دلم می‌خواست بدانم.",
+    emotion:"بعضی آدم‌ها بدون تلاش، کنجکاوی قلب را بیدار می‌کنند.",
+    color:"#9b8cff",
+    secondary:"#483d8b",
+    third:"#cdb4db"
+},
+
+{
+    label:"اولین حرف",
+    title:"یک سلام ساده",
+    body:"یک سلام کوچک، شروع یک حس بزرگ شد.",
+    emotion:"گاهی زیباترین داستان‌ها با ساده‌ترین کلمه آغاز می‌شوند.",
+    color:"#00e5ff",
+    secondary:"#006d77",
+    third:"#83f5ff"
+},
+
+{
+    label:"آشنایی",
+    title:"چند کلمه",
+    body:"حرف‌ها ساده بودند، اما برای من خاص شدند.",
+    emotion:"شاید خودت نمی‌دانستی، اما من هر کلمه را به خاطر سپردم.",
+    color:"#ffd166",
+    secondary:"#f77f00",
+    third:"#ffe8a1"
+},
+
+{
+    label:"لبخند",
+    title:"آن لبخند",
+    body:"لبخندت کوتاه بود، اما هنوز یادم مانده.",
+    emotion:"بعضی لبخندها بیشتر از هزار جمله حرف می‌زنند.",
+    color:"#ff8c42",
+    secondary:"#c44536",
+    third:"#ffbf69"
+},
+
+{
+    label:"شناختن",
+    title:"کم‌کم...",
+    body:"هرچه بیشتر حرف زدیم، بیشتر دوست داشتم بشناسمت.",
+    emotion:"نه فقط حرف‌هایت، بلکه دنیایی که پشت آن‌ها پنهان بود.",
+    color:"#ff4fa3",
+    secondary:"#9d174d",
+    third:"#ff9fce"
+},
+
+{
+    label:"یک حس تازه",
+    title:"حس عجیبی",
+    body:"نمی‌دانستم چیست... فقط می‌دانستم قشنگ است.",
+    emotion:"حسی آرام که بی‌صدا در دل جا گرفت.",
+    color:"#7b61ff",
+    secondary:"#3a0ca3",
+    third:"#b8a1ff"
+},
+
+{
+    label:"آن لحظه",
+    title:"شاید...",
+    body:"شاید این دیدار اتفاقی نبود.",
+    emotion:"شاید بعضی آدم‌ها دقیقاً وقتی باید، سر راه ما قرار می‌گیرند.",
+    color:"#80bfff",
+    secondary:"#4361ee",
+    third:"#bde0fe"
+},
+
+{
+    label:"زمان",
+    title:"زمان گذشت",
+    body:"دقایق گذشتند، اما هیچ‌کدام متوجه نشدیم.",
+    emotion:"وقتی کنار کسی احساس خوبی داری، زمان آرام‌تر می‌گذرد.",
+    color:"#ff6b6b",
+    secondary:"#9d0208",
+    third:"#ffaaa5"
+},
+
+{
+    label:"جزئیات",
+    title:"چیزهای کوچک",
+    body:"خنده‌ات، حرف‌هایت... همه در ذهنم ماند.",
+    emotion:"گاهی همین جزئیات کوچک، بزرگ‌ترین خاطره‌ها می‌شوند.",
+    color:"#52b788",
+    secondary:"#1b4332",
+    third:"#95d5b2"
+},
+
+{
+    label:"آرامش",
+    title:"کنار تو",
+    body:"برای لحظه‌ای، همه‌چیز آرام بود.",
+    emotion:"انگار دنیا برای چند لحظه فقط ما دو نفر را دیده بود.",
+    color:"#ffb703",
+    secondary:"#fb8500",
+    third:"#ffd166"
+},
+
+{
+    label:"یک لحظه",
+    title:"واقعاً گوش دادم",
+    body:"فقط برای شنیدن تو.",
+    emotion:"چون بعضی حرف‌ها ارزش این را دارند که با دل شنیده شوند.",
+    color:"#00b4d8",
+    secondary:"#0077b6",
+    third:"#90e0ef"
+},
+
+{
+    label:"فهمیدن",
+    title:"فهمیدم...",
+    body:"این فقط یک دیدار معمولی نبود.",
+    emotion:"چون بعد از رفتنت، هنوز چیزی از تو در ذهنم مانده بود.",
+    color:"#a663cc",
+    secondary:"#5a189a",
+    third:"#d5a6e6"
+},
+
+{
+    label:"بعد از دیدار",
+    title:"بعد از تو",
+    body:"رفتی، اما فکرت هنوز ماند.",
+    emotion:"بعضی حضورها حتی بعد از رفتن هم احساس می‌شوند.",
+    color:"#f72585",
+    secondary:"#720026",
+    third:"#ff8fab"
+},
+
+{
+    label:"خداحافظی",
+    title:"وقت رفتن",
+    body:"دلم نمی‌خواست آن لحظه تمام شود.",
+    emotion:"کاش بعضی خداحافظی‌ها کمی بیشتر طول می‌کشیدند.",
+    color:"#fb8500",
+    secondary:"#bb3e03",
+    third:"#ffb703"
+},
+
+{
+    label:"سکوت",
+    title:"یک سکوت کوتاه",
+    body:"گاهی سکوت، بیشتر از هزار کلمه حرف می‌زند.",
+    emotion:"شاید هر دو می‌دانستیم که این لحظه ساده نیست.",
+    color:"#4361ee",
+    secondary:"#1d3557",
+    third:"#7b9acc"
+},
+
+{
+    label:"خاطره",
+    title:"یک خاطره زیبا",
+    body:"شاید بهترین لحظه‌ها از قبل برنامه‌ریزی نمی‌شوند.",
+    emotion:"آن‌ها فقط اتفاق می‌افتند... و بعد برای همیشه در قلب می‌مانند.",
+    color:"#8338ec",
+    secondary:"#3c096c",
+    third:"#c77dff"
+},
+
+{
+    final:true,
+    label:"آغاز",
+    title:"شاید این آغاز بود",
+    body:"ما فقط همدیگر را دیدیم... اما شاید داستان از همین‌جا شروع شد.",
+    emotion:"و شاید زیباترین قسمت داستان، هنوز نوشته نشده باشد. ❤️",
+    color:"#ff4dcb",
+    secondary:"#7b2cbf",
+    third:"#ff9de2"
+}
+
+];
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let index=0;
+let started=false;
+let locked=false;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const intro=
+    document.getElementById("intro");
+
+const content=
+    document.getElementById("content");
+
+const counter=
+    document.getElementById("counter");
+
+const music=
+    document.getElementById("music");
+
+const musicButton=
+    document.getElementById("musicButton");
+
+const space=
+    document.getElementById("space");
+
+const colorGlow=
+    document.getElementById("colorGlow");
+
+const nextButton=
+    document.getElementById("nextButton");
+
+const tapText=
+    document.getElementById("tapText");
+
+const restartButton=
+    document.getElementById("restartButton");
+
+const finished=
+    document.getElementById("finished");
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+for(let i=0;i<150;i++){
+
+    const star=
+        document.createElement("div");
+
+    star.className="star";
+
+    star.style.left=
+        Math.random()*100+"%";
+
+    star.style.top=
+        Math.random()*100+"%";
+
+    const size=
+        .5+Math.random()*2.3;
+
+    star.style.width=
+        size+"px";
+
+    star.style.height=
+        size+"px";
+
+    star.style.setProperty(
+        "--speed",
+        (1.5+Math.random()*4)+"s"
+    );
+
+    star.style.animationDelay=
+        (-Math.random()*5)+"s";
+
+    document
+        .getElementById("stars")
+        .appendChild(star);
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+function startStory(){
+
+    if(started)
+        return;
+
+    started=true;
+
+    intro.classList.add("hide");
+
+    music.volume=.42;
+
+    music.play()
+    .then(()=>{
+
+        musicButton.classList.add(
+            "playing"
+        );
+
+        musicButton.textContent="♫";
+
+    })
+    .catch(()=>{});
+
+    setTimeout(
+        render,
+        400
+    );
+}
+
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+function applyColors(scene){
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--scene-color",
+            scene.color
+        );
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--scene-secondary",
+            scene.secondary
+        );
+
+    document.documentElement
+        .style
+        .setProperty(
+            "--scene-third",
+            scene.third
+        );
+
+    colorGlow.style.background=
+        scene.color;
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+    const scene=
+        scenes[index];
+
+    applyColors(scene);
+
+    content.innerHTML="";
+
+    content.classList.remove(
+        "exit"
+    );
+
+
+    /* FINAL HEART */
+
+    if(scene.final){
+
+        const heart=
+            document.createElement("div");
+
+        heart.className=
+            "big-heart";
+
+        heart.textContent="♥";
+
+        content.appendChild(
+            heart
+        );
+    }
+
+
+    /* LABEL */
+
+    const label=
+        document.createElement("div");
+
+    label.className=
+        "eyebrow";
+
+    label.textContent=
+        scene.label;
+
+    content.appendChild(
+        label
+    );
+
+
+    /* TITLE */
+
+    const title=
+        document.createElement("h1");
+
+    title.className=
+        "title";
+
+    title.textContent=
+        scene.title;
+
+    content.appendChild(
+        title
+    );
+
+
+    /* BODY */
+
+    const body=
+        document.createElement("div");
+
+    body.className=
+        "body";
+
+    body.textContent=
+        scene.body;
+
+    content.appendChild(
+        body
+    );
+
+
+    /* EMOTIONAL LINE */
+
+    const emotion=
+        document.createElement("div");
+
+    emotion.className=
+        "emotion";
+
+    emotion.textContent=
+        scene.emotion;
+
+    content.appendChild(
+        emotion
+    );
+
+
+    /* COUNTER */
+
+    counter.textContent=
+        String(index+1)
+        .padStart(2,"0")
+        +
+        " / "
+        +
+        String(scenes.length)
+        .padStart(2,"0");
+
+
+    content.scrollTop=0;
+
+
+    /* FINAL */
+
+    if(scene.final){
+
+        nextButton.style.display=
+            "none";
+
+        tapText.style.display=
+            "none";
+
+        restartButton.classList.add(
+            "show"
+        );
+
+        finished.classList.add(
+            "show"
+        );
+
+    }else{
+
+        nextButton.style.display=
+            "flex";
+
+        tapText.style.display=
+            "block";
+
+        restartButton.classList.remove(
+            "show"
+        );
+
+        finished.classList.remove(
+            "show"
+        );
+    }
+}
+
+
+/* =====================================================
+   NEXT
+===================================================== */
+
+function next(){
+
+    if(!started)
+        return;
+
+    if(locked)
+        return;
+
+    if(index>=scenes.length-1){
+        return;
+    }
+
+    locked=true;
+
+    content.classList.add(
+        "exit"
+    );
+
+
+    setTimeout(()=>{
+
+        index++;
+
+        render();
+
+        space.style.transform=
+        `
+        translateZ(-400px)
+        scale(1.4)
+        rotateX(1deg)
+        rotateY(-1deg)
+        `;
+
+        setTimeout(()=>{
+
+            space.style.transform=
+            `
+            translateZ(-400px)
+            scale(1.35)
+            `;
+
+        },300);
+
+        locked=false;
+
+    },400);
+}
+
+
+/* =====================================================
+   RESTART
+===================================================== */
+
+function restartStory(){
+
+    if(locked)
+        return;
+
+    locked=true;
+
+    content.classList.add(
+        "exit"
+    );
+
+    setTimeout(()=>{
+
+        index=0;
+
+        render();
+
+        content.classList.remove(
+            "exit"
+        );
+
+        locked=false;
+
+    },400);
+}
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+function toggleMusic(){
+
+    if(music.paused){
+
+        music.play()
+        .then(()=>{
+
+            musicButton.classList.add(
+                "playing"
+            );
+
+            musicButton.textContent=
+                "♫";
+
+        });
+
+    }else{
+
+        music.pause();
+
+        musicButton.classList.remove(
+            "playing"
+        );
+
+        musicButton.textContent=
+            "♪";
+    }
+}
+
+
+/* =====================================================
+   SWIPE
+===================================================== */
+
+let touchStartX=0;
+let touchStartY=0;
+
+document.addEventListener(
+    "touchstart",
+    event=>{
+
+        touchStartX=
+            event.touches[0].clientX;
+
+        touchStartY=
+            event.touches[0].clientY;
+
+    },
+    {passive:true}
+);
+
+document.addEventListener(
+    "touchend",
+    event=>{
+
+        const dx=
+            event.changedTouches[0].clientX
+            -
+            touchStartX;
+
+        const dy=
+            event.changedTouches[0].clientY
+            -
+            touchStartY;
+
+        if(
+            Math.abs(dy)>50 &&
+            Math.abs(dy)>Math.abs(dx)
+        ){
+
+            if(dy<0){
+                next();
+            }
+        }
+    },
+    {passive:true}
+);
+
+
+/* =====================================================
+   DESKTOP PARALLAX
+===================================================== */
+
+document
+.getElementById("app")
+.addEventListener(
+    "pointermove",
+    event=>{
+
+        if(window.innerWidth<700)
+            return;
+
+        const x=
+            event.clientX/
+            window.innerWidth
+            -.5;
+
+        const y=
+            event.clientY/
+            window.innerHeight
+            -.5;
+
+        space.style.transform=
+        `
+        translateZ(-400px)
+        scale(1.4)
+        translate(
+            ${x*15}px,
+            ${y*15}px
+        )
+        `;
+    }
+);
+
+
+/* =====================================================
+   INITIAL
+===================================================== */
+
+render();
+
+</script>
+
+</body>
+</html>
